@@ -1,7 +1,9 @@
 ﻿using Dadata;
+using Dadata.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Net;
 
 namespace StandardAddress.API.Controllers
 {
@@ -17,17 +19,14 @@ namespace StandardAddress.API.Controllers
         }
 
         [HttpGet(Name = "StandardizeAddress")]
-        public async Task StandardizeAddressAsync()
+        public async Task StandardizeAddressAsync(string rawAddress)
         {
             var token = _dadataAuth.Token;
             var secret = _dadataAuth.Secret;
 
-            var api = new CleanClientAsync(token, secret);
-            // or any of the following, depending on the API method
-            var api1 = new SuggestClientAsync(token);
-            var api2 = new OutwardClientAsync(token);
-            var api3 = new ProfileClientAsync(token, secret);
-            return;
+            var api = new CleanClientAsync(_dadataAuth.Token, _dadataAuth.Secret);
+
+            var result = await api.Clean<Address>(rawAddress);
         }
     }
 }
