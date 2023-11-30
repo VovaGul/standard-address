@@ -1,4 +1,7 @@
 
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace StandardAddress.API
 {
     public class Program
@@ -6,8 +9,9 @@ namespace StandardAddress.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             // Add services to the container.
+
+            builder.Services.Configure<DadataAuth>(builder.Configuration.GetSection(typeof(DadataAuth).Name));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
