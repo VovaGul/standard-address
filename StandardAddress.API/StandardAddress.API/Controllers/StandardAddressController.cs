@@ -11,19 +11,17 @@ namespace StandardAddress.API.Controllers
     [ApiController]
     public class StandardAddressController : ControllerBase
     {
-        private readonly DadataAuth _dadataAuth;
+        private readonly CleanClientAsync _cleanClientAsync;
 
-        public StandardAddressController(IOptions<DadataAuth> options)
+        public StandardAddressController(CleanClientAsync cleanClientAsync)
         {
-            _dadataAuth = options.Value;
+            _cleanClientAsync = cleanClientAsync;
         }
 
         [HttpGet(Name = "StandardizeAddress")]
         public async Task<string> StandardizeAddressAsync(string rawAddress)
         {
-            var api = new CleanClientAsync(_dadataAuth.Token, _dadataAuth.Secret);
-
-            var address = await api.Clean<Address>(rawAddress);
+            var address = await _cleanClientAsync.Clean<Address>(rawAddress);
 
             if (address.result == null)
             {
