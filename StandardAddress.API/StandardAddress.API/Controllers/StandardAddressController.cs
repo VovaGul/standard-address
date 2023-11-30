@@ -19,14 +19,18 @@ namespace StandardAddress.API.Controllers
         }
 
         [HttpGet(Name = "StandardizeAddress")]
-        public async Task StandardizeAddressAsync(string rawAddress)
+        public async Task<string> StandardizeAddressAsync(string rawAddress)
         {
-            var token = _dadataAuth.Token;
-            var secret = _dadataAuth.Secret;
-
             var api = new CleanClientAsync(_dadataAuth.Token, _dadataAuth.Secret);
 
-            var result = await api.Clean<Address>(rawAddress);
+            var address = await api.Clean<Address>(rawAddress);
+
+            if (address.result == null)
+            {
+                throw new StandardizedAddressException($"не удалось стандартизировать адрес {rawAddress}");
+            }
+
+            return address.result;
         }
     }
 }
