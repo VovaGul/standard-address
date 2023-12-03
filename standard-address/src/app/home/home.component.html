@@ -1,4 +1,4 @@
 <p>home works!</p>
-<label for="textInput">Enter Text:</label>
-<input type="text" id="textInput" name="textInput">
-<button>Отправить</button>
+<label for="rowAddress">Enter Text:</label>
+<input type="text" [value]="rowAddress" placeholder="Введите адрес" id="rowAddress" name="rowAddress">
+<button (click)="send()">Отправить</button>

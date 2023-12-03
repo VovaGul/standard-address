@@ -2,6 +2,8 @@ namespace StandardAddress.API
 {
     public class Program
     {
+        readonly static string CORSOpenPolicy = "OpenCORSPolicy";
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,14 @@ namespace StandardAddress.API
             builder.Services.AddSingleton<DadataService>();
             builder.Services.AddHttpClient();
             builder.Services.AddAutoMapper(typeof(AddressProfile));
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: CORSOpenPolicy,
+                    builder => {
+                        builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,7 +37,7 @@ namespace StandardAddress.API
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors(CORSOpenPolicy);
             app.UseAuthorization();
 
 

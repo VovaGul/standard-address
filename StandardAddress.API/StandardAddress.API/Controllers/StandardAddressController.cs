@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace StandardAddress.API.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("OpenCORSPolicy")]
     [ApiController]
     public class StandardAddressController : ControllerBase
     {
