@@ -1,9 +1,5 @@
-﻿using Dadata;
-using Dadata.Model;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Net;
 
 namespace StandardAddress.API.Controllers
 {
@@ -11,24 +7,21 @@ namespace StandardAddress.API.Controllers
     [ApiController]
     public class StandardAddressController : ControllerBase
     {
-        private readonly CleanClientAsync _cleanClientAsync;
+        private readonly DadataService _dadataService;
+        private readonly IMapper _mapper;
 
-        public StandardAddressController(CleanClientAsync cleanClientAsync)
+        public StandardAddressController(DadataService dadataService, IMapper mapper)
         {
-            _cleanClientAsync = cleanClientAsync;
+            _dadataService = dadataService;
+            _mapper = mapper;
         }
 
         [HttpGet(Name = "StandardizeAddress")]
-        public async Task<string> StandardizeAddressAsync(string rawAddress)
+        public async Task<AddressDto> StandardizeAddressAsync(string rawAddress = "мск сухонска 11/-89")
         {
-            var address = await _cleanClientAsync.Clean<Address>(rawAddress);
-
-            if (address.result == null)
-            {
-                throw new StandardizedAddressException($"не удалось стандартизировать адрес {rawAddress}");
-            }
-
-            return address.result;
+            var address = await _dadataService.CleanAsync(rawAddress);
+            var addressDto = _mapper.Map<AddressDto>(address);
+            return addressDto;
         }
     }
 }

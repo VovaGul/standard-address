@@ -1,9 +1,3 @@
-
-using Dadata;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-
 namespace StandardAddress.API
 {
     public class Program
@@ -14,11 +8,9 @@ namespace StandardAddress.API
             // Add services to the container.
 
             builder.Services.Configure<DadataAuth>(builder.Configuration.GetSection(typeof(DadataAuth).Name));
-            builder.Services.AddSingleton(provider =>
-            {
-                var dadataAuth = provider.GetRequiredService<IOptions<DadataAuth>>().Value;
-                return new CleanClientAsync(dadataAuth.Token, dadataAuth.Secret);
-            });
+            builder.Services.AddSingleton<DadataService>();
+            builder.Services.AddHttpClient();
+            builder.Services.AddAutoMapper(typeof(AddressProfile));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
