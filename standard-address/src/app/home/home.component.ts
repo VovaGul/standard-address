@@ -1,3 +1,4 @@
+import { Address } from './../address.model';
 import { ServerService } from './../server.service';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -9,13 +10,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent {
   rowAddress: string = '';
+  address: string = '';
 
   constructor(private serverService: ServerService) { }
 
   send(): void {
-    this.serverService.getAddress().subscribe(
+    this.serverService.getAddress(this.rowAddress).subscribe(
       data => {
-        console.log(data);
+        this.address = data.result
       },
       error => {
         console.error('Error fetching data:', error);

@@ -1,4 +1,5 @@
 <p>home works!</p>
 <label for="rowAddress">Enter Text:</label>
-<input type="text" [value]="rowAddress" placeholder="Введите адрес" id="rowAddress" name="rowAddress">
+<input type="text" [(ngModel)]="rowAddress">
 <button (click)="send()">Отправить</button>
+<label>{{ address }}</label>

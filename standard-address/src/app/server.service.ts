@@ -11,7 +11,7 @@ export class ServerService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAddress(): Observable<Address> {
-    return this.httpClient.get<Address>('https://localhost:7045/api/StandardAddress?rawAddress=%D0%BC%D1%81%D0%BA%20%D1%81%D1%83%D1%85%D0%BE%D0%BD%D1%81%D0%BA%D0%B0%2011%2F-89');
+  getAddress(address: string): Observable<Address> {
+    return this.httpClient.get<Address>('https://localhost:7045/api/StandardAddress?rawAddress=' + address);
   }
 }
