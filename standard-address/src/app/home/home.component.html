@@ -1,5 +1,7 @@
 <p>home works!</p>
 <label for="rowAddress">Enter Text:</label>
-<input type="text" [(ngModel)]="rowAddress">
+<input type="text" [(ngModel)]="rowAddress" placeholder="Введите адрес" id="rowAddress" name="rowAddress"/>
 <button (click)="send()">Отправить</button>
 <label>{{ address }}</label>
+
+<a routerLink="/help-page">Помощь</a>
