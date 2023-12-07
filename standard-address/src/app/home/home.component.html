@@ -1,7 +1,10 @@
-<p>home works!</p>
-<label for="rowAddress">Enter Text:</label>
-<input type="text" [(ngModel)]="rowAddress" placeholder="Введите адрес" id="rowAddress" name="rowAddress"/>
-<button (click)="send()">Отправить</button>
-<label>{{ address }}</label>
-
-<a routerLink="/help-page">Помощь</a>
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
+  <p class="lead">home works!</p>
+  <div class="form-group">
+    <label for="rowAddress">Enter Text:</label>
+    <input type="text" class="form-control" [(ngModel)]="rowAddress" placeholder="Введите адрес" id="rowAddress" name="rowAddress"/>
+  </div>
+  <button class="btn btn-primary" (click)="send()">Отправить</button>
+  <label class="mt-2">{{ address }}</label>
+  <a routerLink="/help-page" class="btn btn-link">Помощь</a>
+</div>
