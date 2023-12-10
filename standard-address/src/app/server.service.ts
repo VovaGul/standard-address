@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Address } from './address.model';
+import { EnvironmentService } from 'src/environments/environment.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,10 @@ import { Address } from './address.model';
 export class ServerService {
   private apiUrl = 'https://api.example.com/data';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private environmentService: EnvironmentService) { }
 
   getAddress(address: string): Observable<Address> {
-    return this.httpClient.get<Address>('https://localhost:7045/api/StandardAddress?rawAddress=' + address);
+    return this.httpClient.get<Address>(this.environmentService.getValue('apiUrl') + 'StandardAddress?rawAddress=' + address);
   }
 }

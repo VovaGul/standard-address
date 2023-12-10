@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HelpPageComponent } from './help-page/help-page.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { ENVIRONMENT } from 'src/environments/environment.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{ provide: ENVIRONMENT, useValue: environment }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
