@@ -11,11 +11,16 @@ namespace StandardAddress.API.Controllers
     {
         private readonly DadataService _dadataService;
         private readonly IMapper _mapper;
+        private readonly ILogger<StandardAddressController> _logger;
 
-        public StandardAddressController(DadataService dadataService, IMapper mapper)
+        public StandardAddressController(
+            DadataService dadataService,
+            IMapper mapper,
+            ILogger<StandardAddressController> logger)
         {
             _dadataService = dadataService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet(Name = "StandardizeAddress")]

@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace StandardAddress.API
 {
@@ -8,9 +9,11 @@ namespace StandardAddress.API
 
         public static void Main(string[] args)
         {
+            Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var builder = WebApplication.CreateBuilder(args);
-            // Add services to the container.
+            builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
+            // Add services to the container.
             builder.Services.Configure<DadataAuth>(builder.Configuration.GetSection(typeof(DadataAuth).Name));
             builder.Services.AddSingleton<DadataService>();
             builder.Services.AddHttpClient();
@@ -37,6 +40,7 @@ namespace StandardAddress.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseSerilogRequestLogging();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAccessControlAllowOriginAlways();
