@@ -1,8 +1,8 @@
 <div class="container d-flex flex-column align-items-center justify-content-center vh-100">
   <p class="lead">Cтандартизировать адрес</p>
   <div class="form-group d-flex flex-row">
-    <input type="text" class="form-control mr-2" [(ngModel)]="rowAddress" placeholder="Введите адрес" id="rowAddress" name="rowAddress"/>
-    <button class="btn btn-primary" (click)="send()">Отправить</button>
+    <input type="text" class="form-control mr-2" [(ngModel)]="rowAddress" placeholder="Введите адрес" id="rowAddress" name="rowAddress" required/>
+    <button class="btn btn-primary" (click)="send()" [disabled]="!rowAddress">Отправить</button>
   </div>
   <label class="mt-2">{{ address }}</label>
 </div>
