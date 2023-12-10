@@ -15,13 +15,13 @@ export class HomeComponent {
   constructor(private serverService: ServerService) { }
 
   send(): void {
-    this.serverService.getAddress(this.rowAddress).subscribe(
-      data => {
+    this.serverService.getAddress(this.rowAddress).subscribe({
+      next: (data) => {
         this.address = data.result
       },
-      error => {
+      error: (error) => {
         console.error('Error fetching data:', error);
       }
-    );
+   });
   }
 }
