@@ -20,11 +20,9 @@ namespace StandardAddress.API
 
         public async Task<Address> CleanAsync(string rawAddress)
         {
-            string apiUrl = "https://cleaner.dadata.ru/api/v1/clean/address";
             string jsonPayload = $"[ \"{rawAddress}\" ]";
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
-
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _auth.ApiUrl);
             // Добавляем заголовки
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Authorization", $"Token {_auth.Token}");
