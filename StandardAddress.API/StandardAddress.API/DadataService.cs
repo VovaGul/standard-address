@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Text;
 using Dadata.Model;
+using System.Web.Http;
 
 namespace StandardAddress.API
 {
@@ -36,16 +37,13 @@ namespace StandardAddress.API
             HttpResponseMessage response = await _httpClient.SendAsync(request);
 
             // Обработка ответа
-            if (response.IsSuccessStatusCode)
-            {
-                string responseBody = await response.Content.ReadAsStringAsync();
-                var address = JsonConvert.DeserializeObject<List<Address>>(responseBody);
-                return address.First();
-            }
-            else
-            {
-                throw new Exception();
-            }
+            if (!response.IsSuccessStatusCode) 
+                throw new HttpResponseException(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var address = JsonConvert.DeserializeObject<List<Address>>(responseBody);
+            return address.First();
+
         }
     }
 }
