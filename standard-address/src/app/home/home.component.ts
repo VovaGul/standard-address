@@ -10,17 +10,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent {
   rowAddress: string = '';
-  address: string = '';
+  result: string = '';
 
   constructor(private serverService: ServerService) { }
 
   send(): void {
     this.serverService.getAddress(this.rowAddress).subscribe({
       next: (data) => {
-        this.address = data.result
+        this.result = data.result ?? "Не удалось стандартизировать адрес. Попробуйте ввести более точное значение"
       },
       error: (error) => {
         console.error('Error fetching data:', error);
+        this.result = "Внутренняя ошибка, попробуйте перезагрузить страницу или повторить запрос позже"
       }
    });
   }

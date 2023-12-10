@@ -4,5 +4,5 @@
     <input type="text" class="form-control mr-2" [(ngModel)]="rowAddress" placeholder="Введите адрес" id="rowAddress" name="rowAddress" required/>
     <button class="btn btn-primary" (click)="send()" [disabled]="!rowAddress">Отправить</button>
   </div>
-  <label class="mt-2">{{ address }}</label>
+  <label class="mt-2">{{ result }}</label>
 </div>
